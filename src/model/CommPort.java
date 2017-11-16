@@ -5,11 +5,9 @@ import java.util.Enumeration;
 
 public class CommPort {
 
-	public static void main(String[] args) {
-		System.out.println(" Program Started!!! ");
-
+	public String commPortFinder() {
 		CommPortIdentifier serialPortId;
-
+		String commPort = "";
 		Enumeration enumComm;
 
 		enumComm = CommPortIdentifier.getPortIdentifiers();
@@ -17,11 +15,10 @@ public class CommPort {
 		while (enumComm.hasMoreElements()) {
 			serialPortId = (CommPortIdentifier) enumComm.nextElement();
 			if (serialPortId.getPortType() == CommPortIdentifier.PORT_SERIAL) {
-				System.out.println(serialPortId.getName());
+				commPort = serialPortId.getName();
 			}
 		}
-
-		System.out.println(" Program Finished Sucessfully ");
+		return commPort;
 	}
 
 }

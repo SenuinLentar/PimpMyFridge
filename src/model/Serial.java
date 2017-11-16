@@ -12,15 +12,31 @@ import java.util.Enumeration;
 public class Serial implements SerialPortEventListener {
 
 	SerialPort serialPort;
-	/** The port we’re normally going to use. */
-	private static final String PORT_NAMES[] = { "COM5" };
-
+	
 	private BufferedReader input;
 	private OutputStream output;
 	private static final int TIME_OUT = 2000;
 	private static final int DATA_RATE = 9600;
 
-	public void initialize() {
+	public void serialLauncher(String commPort) throws Exception {
+		String PORT_NAMES[] = {commPort};
+		Serial serial = new Serial();
+		serial.initialize(PORT_NAMES);
+		Thread t = new Thread() {
+			public void run() {
+				// the following line will keep this app alive for 1000 seconds,
+				// waiting for events to occur and responding to them (printing incoming
+				// messages to console).
+				try {
+					Thread.sleep(1000000);
+				} catch (InterruptedException ie) {
+				}
+			}
+		};
+		t.start();
+	}
+
+	public void initialize(String PORT_NAMES[]) {
 		CommPortIdentifier portId = null;
 		Enumeration portEnum = CommPortIdentifier.getPortIdentifiers();
 
@@ -70,7 +86,6 @@ public class Serial implements SerialPortEventListener {
 					inputLine = input.readLine();
 
 					String[] chunks = inputLine.split(",");
-					//System.out.println(inputLine);
 					System.out.println(chunks[0] + " \t " + chunks[1] + " \t ");
 				}
 
@@ -79,23 +94,5 @@ public class Serial implements SerialPortEventListener {
 			}
 		}
 		// Ignore all the other eventTypes, but you should consider the other ones.
-	}
-
-	public static void main(String[] args) throws Exception {
-		Serial main = new Serial();
-		main.initialize();
-		Thread t = new Thread() {
-			public void run() {
-				// the following line will keep this app alive for 1000 seconds,
-				// waiting for events to occur and responding to them (printing incoming
-				// messages to console).
-				try {
-					Thread.sleep(1000000);
-				} catch (InterruptedException ie) {
-				}
-			}
-		};
-		t.start();
-		System.out.println(" Started ");
 	}
 }
