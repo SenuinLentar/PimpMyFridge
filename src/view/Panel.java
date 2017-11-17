@@ -16,8 +16,13 @@ public class Panel extends JPanel {
 	}
 
 	public void paintComponent(Graphics g) {
-		g.drawString(serial.getChunks()[0], 10, 20);
-		System.out.println(serial.getChunks()[0]);
+		String toto = serial.getChunks()[0];
+		if(toto != "0") {
+			g.drawString(toto, 10, 20);
+			//System.out.println(serial.getChunks()[0]);
+			serial.printChunk();
+		}
+		
 	}
 	
 	public void update() {
