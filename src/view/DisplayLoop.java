@@ -1,23 +1,28 @@
 package view;
 
+import controller.ChunksCreator;
 import model.Serial;
 
 public class DisplayLoop {
 	
-	private String[] chunks;
-	public DisplayLoop(Serial serial) {
-//		GraphicInterface graphicInterface = new GraphicInterface();
-//		graphicInterface.Window(serial);
+	private ChunksCreator chunksCreator;
+	
+	public DisplayLoop(ChunksCreator chunksCreator) {
+		this.chunksCreator = chunksCreator;
+		GraphicInterface graphicInterface = new GraphicInterface();
+		graphicInterface.Window(this.chunksCreator);
 	}
 
-	public DisplayLoop(String[] chunks) {
-		this.chunks = chunks;
-	}
+//	
+//	public DisplayLoop(ChunksCreator chunksCreator) {
+//		this.chunksCreator = chunksCreator;
+//	}
+	
 	public void Loop() throws InterruptedException {
 		while (true) {
-//			GraphicInterface.getPanel().update();
-			System.out.println(chunks[0]);
-			Thread.sleep(500);
+			GraphicInterface.getPanel().update();
+			System.out.println(this.chunksCreator.getChunks()[0]);
+			//Thread.sleep(500);
 		}
 	}
 }

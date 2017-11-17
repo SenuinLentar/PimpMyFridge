@@ -10,7 +10,8 @@ public class Main {
 		CommPort commPort = new CommPort();
 		Serial serial = new Serial(commPort.commPortFinder(), chunksCreator);
 		
-		DisplayLoop loop = new DisplayLoop(chunksCreator.getChunks());
+		
+		DisplayLoop loop = new DisplayLoop(chunksCreator);
 		loop.Loop();
 		
 		

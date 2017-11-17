@@ -12,8 +12,8 @@ public class ChunksCreator {
 		return chunks;
 	}
 
-	public void setChunks(String[] chunks) {
-		this.chunks = chunks;
+	public void setChunks(String[] string) {
+		this.chunks = string;
 	}
 
 }

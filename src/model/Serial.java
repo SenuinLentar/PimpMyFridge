@@ -90,7 +90,7 @@ public class Serial implements SerialPortEventListener {
 					this.chunksCreator.setChunks(inputLine.split(","));
 
 					// System.out.println(chunks[0] + " \t " + chunks[1] + " \t ");
-					System.out.println(this.chunksCreator.getChunks()[0]);
+					//System.out.println(this.chunksCreator.getChunks()[0]);
 				}
 
 			} catch (Exception e) {
