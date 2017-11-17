@@ -1,3 +1,4 @@
+
 package view;
 
 import java.awt.Color;
@@ -33,3 +34,4 @@ public class GraphicInterface extends JFrame {
 		return panel;
 	}
 }
+

@@ -1,11 +1,21 @@
 package controller;
 
 import view.*;
+
+import java.io.File;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+
 import model.*;
 
 public class Main {
 
 	public static void main(String[] args) throws Exception {
+		
+		Fenetre fenetrePrincipale = new Fenetre();
+
 		ChunksCreator chunksCreator = new ChunksCreator();
 		CommPort commPort = new CommPort();
 		
