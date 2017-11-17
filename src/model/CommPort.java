@@ -18,6 +18,7 @@ public class CommPort {
 				commPort = serialPortId.getName();
 			}
 		}
+		System.out.println(commPort);
 		return commPort;
 	}
 
