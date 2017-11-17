@@ -12,7 +12,7 @@ import java.util.Enumeration;
 public class Serial implements SerialPortEventListener {
 
 	SerialPort serialPort;
-	
+	private String[] chunks = {"0","0"};
 	private BufferedReader input;
 	private OutputStream output;
 	private static final int TIME_OUT = 2000;
@@ -22,18 +22,18 @@ public class Serial implements SerialPortEventListener {
 		String PORT_NAMES[] = {commPort};
 		Serial serial = new Serial();
 		serial.initialize(PORT_NAMES);
-		Thread t = new Thread() {
-			public void run() {
-				// the following line will keep this app alive for 1000 seconds,
-				// waiting for events to occur and responding to them (printing incoming
-				// messages to console).
-				try {
-					Thread.sleep(1000000);
-				} catch (InterruptedException ie) {
-				}
-			}
-		};
-		t.start();
+//		Thread t = new Thread() {
+//			public void run() {
+//				// the following line will keep this app alive for 1000 seconds,
+//				// waiting for events to occur and responding to them (printing incoming
+//				// messages to console).
+//				try {
+//					Thread.sleep(1000);
+//				} catch (InterruptedException ie) {
+//				}
+//			}
+//		};
+//		t.start();
 	}
 
 	public void initialize(String PORT_NAMES[]) {
@@ -85,8 +85,11 @@ public class Serial implements SerialPortEventListener {
 				if (input.ready()) {
 					inputLine = input.readLine();
 
-					String[] chunks = inputLine.split(",");
-					System.out.println(chunks[0] + " \t " + chunks[1] + " \t ");
+					//chunks = ;
+					
+					this.setChunks(inputLine.split(","));
+					
+					//System.out.println(chunks[0] + " \t " + chunks[1] + " \t ");
 				}
 
 			} catch (Exception e) {
@@ -95,4 +98,12 @@ public class Serial implements SerialPortEventListener {
 		}
 		// Ignore all the other eventTypes, but you should consider the other ones.
 	}
+
+	public String[] getChunks() {
+		return chunks;
+	}
+
+	public void setChunks(String[] chunks) {
+		this.chunks = chunks;
+	}	
 }
