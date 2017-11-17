@@ -1,18 +1,30 @@
-//package view;
-//
-//import model.Serial;
-//
-//public class DisplayLoop {
-//	public DisplayLoop(Serial serial) {
+
+package view;
+
+import controller.ChunksCreator;
+import model.Serial;
+
+public class DisplayLoop {
+	
+	private ChunksCreator chunksCreator;
+	
+//	public DisplayLoop(ChunksCreator chunksCreator) {
+//		this.chunksCreator = chunksCreator;
 //		GraphicInterface graphicInterface = new GraphicInterface();
-//		graphicInterface.Window(serial);
+//		graphicInterface.Window(this.chunksCreator);
 //	}
-//
-//	public void Loop() throws InterruptedException {
-//		while (true) {
+
+	
+	public DisplayLoop(ChunksCreator chunksCreator) {
+		this.chunksCreator = chunksCreator;
+	}
+	
+	public void Loop() throws InterruptedException {
+		while (true) {
 //			GraphicInterface.getPanel().update();
-//			System.out.println("test");
-//			Thread.sleep(250);
-//		}
-//	}
-//}
+			System.out.println(this.chunksCreator.getChunks()[0]);
+			Thread.sleep(200);
+		}
+	}
+}
+

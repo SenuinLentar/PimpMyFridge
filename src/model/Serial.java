@@ -9,31 +9,33 @@ import gnu.io.SerialPortEvent;
 import gnu.io.SerialPortEventListener;
 import java.util.Enumeration;
 
+import controller.ChunksCreator;
+
 public class Serial implements SerialPortEventListener {
 
 	SerialPort serialPort;
-	private String[] chunks = {"0","0"};
 	private BufferedReader input;
 	private OutputStream output;
+	private ChunksCreator chunksCreator;
 	private static final int TIME_OUT = 2000;
 	private static final int DATA_RATE = 9600;
 
-	public void serialLauncher(String commPort) throws Exception {
-		String PORT_NAMES[] = {commPort};
-		Serial serial = new Serial();
-		serial.initialize(PORT_NAMES);
-//		Thread t = new Thread() {
-//			public void run() {
-//				// the following line will keep this app alive for 1000 seconds,
-//				// waiting for events to occur and responding to them (printing incoming
-//				// messages to console).
-//				try {
-//					Thread.sleep(1000);
-//				} catch (InterruptedException ie) {
-//				}
-//			}
-//		};
-//		t.start();
+	public Serial(String commPort, ChunksCreator chunksCreator) throws Exception {
+		this.chunksCreator = chunksCreator;
+		String PORT_NAMES[] = { commPort };
+		this.initialize(PORT_NAMES);
+		// Thread t = new Thread() {
+		// public void run() {
+		// // the following line will keep this app alive for 1000 seconds,
+		// // waiting for events to occur and responding to them (printing incoming
+		// // messages to console).
+		// try {
+		// Thread.sleep(1000);
+		// } catch (InterruptedException ie) {
+		// }
+		// }
+		// };
+		// t.start();
 	}
 
 	public void initialize(String PORT_NAMES[]) {
@@ -80,16 +82,15 @@ public class Serial implements SerialPortEventListener {
 
 	public synchronized void serialEvent(SerialPortEvent oEvent) {
 		if (oEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
+
 			try {
 				String inputLine = null;
 				if (input.ready()) {
 					inputLine = input.readLine();
+					this.chunksCreator.setChunks(inputLine.split(","));
 
-					//chunks = ;
-					
-					this.setChunks(inputLine.split(","));
-					
-					//System.out.println(chunks[0] + " \t " + chunks[1] + " \t ");
+					// System.out.println(chunks[0] + " \t " + chunks[1] + " \t ");
+					//System.out.println(this.chunksCreator.getChunks()[0]);
 				}
 
 			} catch (Exception e) {
@@ -99,11 +100,4 @@ public class Serial implements SerialPortEventListener {
 		// Ignore all the other eventTypes, but you should consider the other ones.
 	}
 
-	public String[] getChunks() {
-		return chunks;
-	}
-
-	public void setChunks(String[] chunks) {
-		this.chunks = chunks;
-	}	
 }
