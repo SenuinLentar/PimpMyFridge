@@ -9,13 +9,13 @@ public class Main {
 		ChunksCreator chunksCreator = new ChunksCreator();
 		CommPort commPort = new CommPort();
 		
-		ArduinoInput test = new ArduinoInput(commPort.commPortFinder());
+		ArduinoInput test = new ArduinoInput(commPort.getCommPort());
 		
-		Serial serial = new Serial(commPort.commPortFinder(), chunksCreator);
+		Serial serial = new Serial(commPort.getCommPort(), chunksCreator);
 		
 		
 		DisplayLoop loop = new DisplayLoop(chunksCreator);
-
+		//Thread.sleep(4000);
 		loop.Loop();		
 	}
 }

@@ -20,6 +20,13 @@ public class Serial implements SerialPortEventListener {
 	private static final int TIME_OUT = 2000;
 	private static final int DATA_RATE = 9600;
 
+	/**
+	 * Constructor of the Serial class.
+	 * 
+	 * @param commPort
+	 * @param chunksCreator
+	 * @throws Exception
+	 */
 	public Serial(String commPort, ChunksCreator chunksCreator) throws Exception {
 		this.chunksCreator = chunksCreator;
 		String PORT_NAMES[] = { commPort };
@@ -38,6 +45,11 @@ public class Serial implements SerialPortEventListener {
 		// t.start();
 	}
 
+	/**
+	 * 
+	 * 
+	 * @param PORT_NAMES
+	 */
 	public void initialize(String PORT_NAMES[]) {
 		CommPortIdentifier portId = null;
 		Enumeration portEnum = CommPortIdentifier.getPortIdentifiers();
@@ -65,7 +77,9 @@ public class Serial implements SerialPortEventListener {
 			// open the streams
 			input = new BufferedReader(new InputStreamReader(serialPort.getInputStream()));
 			output = serialPort.getOutputStream();
-
+//			char a ='~';
+//			int c = a;
+//			output.write(c);
 			serialPort.addEventListener(this);
 			serialPort.notifyOnDataAvailable(true);
 		} catch (Exception e) {
@@ -73,6 +87,9 @@ public class Serial implements SerialPortEventListener {
 		}
 	}
 
+	/**
+	 * Remove the listener and close the connection with the Arduino card.
+	 */
 	public synchronized void close() {
 		if (serialPort != null) {
 			serialPort.removeEventListener();
@@ -80,6 +97,9 @@ public class Serial implements SerialPortEventListener {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see gnu.io.SerialPortEventListener#serialEvent(gnu.io.SerialPortEvent)
+	 */
 	public synchronized void serialEvent(SerialPortEvent oEvent) {
 		if (oEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
 
@@ -99,5 +119,4 @@ public class Serial implements SerialPortEventListener {
 		}
 		// Ignore all the other eventTypes, but you should consider the other ones.
 	}
-
 }

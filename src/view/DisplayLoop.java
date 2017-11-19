@@ -14,10 +14,20 @@ public class DisplayLoop {
 //	}
 
 	
+	/**
+	 * Constructor of the DisplayLoop class.
+	 * 
+	 * @param chunksCreator
+	 */
 	public DisplayLoop(ChunksCreator chunksCreator) {
 		this.chunksCreator = chunksCreator;
 	}
 	
+	/**
+	 * Endless print of the output of the Arduino card.
+	 * 
+	 * @throws InterruptedException
+	 */
 	public void Loop() throws InterruptedException {
 		while (true) {
 //			GraphicInterface.getPanel().update();

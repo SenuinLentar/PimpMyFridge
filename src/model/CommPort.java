@@ -4,21 +4,37 @@ import gnu.io.*;
 import java.util.Enumeration;
 
 public class CommPort {
+	private String commPort = "";
+	private CommPortIdentifier serialPortId;
+	private Enumeration enumComm;
 
-	public String commPortFinder() {
-		CommPortIdentifier serialPortId;
-		String commPort = "";
-		Enumeration enumComm;
-
+	/**
+	 * Constructor of the commPort class.
+	 */
+	public CommPort() {
 		enumComm = CommPortIdentifier.getPortIdentifiers();
+		this.initialize();
+		System.out.println(commPort);
+	}
 
+	/**
+	 * Find the commPort witch is connected to the Arduino card.
+	 */
+	public void initialize() {
 		while (enumComm.hasMoreElements()) {
 			serialPortId = (CommPortIdentifier) enumComm.nextElement();
 			if (serialPortId.getPortType() == CommPortIdentifier.PORT_SERIAL) {
 				commPort = serialPortId.getName();
 			}
 		}
-		System.out.println(commPort);
+	}
+
+	/**
+	 * the getter of commPort.
+	 * 
+	 * @return commPort
+	 */
+	public String getCommPort() {
 		return commPort;
 	}
 
