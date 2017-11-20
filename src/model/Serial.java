@@ -1,6 +1,7 @@
 package model;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import gnu.io.CommPortIdentifier;
@@ -8,15 +9,17 @@ import gnu.io.SerialPort;
 import gnu.io.SerialPortEvent;
 import gnu.io.SerialPortEventListener;
 import java.util.Enumeration;
+import java.util.TooManyListenersException;
 
 import controller.ChunksCreator;
 
 public class Serial implements SerialPortEventListener {
 
-	SerialPort serialPort;
-	private BufferedReader input;
-	private OutputStream output;
+	private static SerialPort serialPort;
+	private static BufferedReader input;
+	private static OutputStream output;
 	private ChunksCreator chunksCreator;
+	private static String messageString;
 	private static final int TIME_OUT = 2000;
 	private static final int DATA_RATE = 9600;
 
@@ -27,30 +30,19 @@ public class Serial implements SerialPortEventListener {
 	 * @param chunksCreator
 	 * @throws Exception
 	 */
-	public Serial(String commPort, ChunksCreator chunksCreator) throws Exception {
+	public Serial(String commPort, ChunksCreator chunksCreator, String messageString) throws Exception {
 		this.chunksCreator = chunksCreator;
+		this.messageString = messageString;
 		String PORT_NAMES[] = { commPort };
-		this.initialize(PORT_NAMES);
-		// Thread t = new Thread() {
-		// public void run() {
-		// // the following line will keep this app alive for 1000 seconds,
-		// // waiting for events to occur and responding to them (printing incoming
-		// // messages to console).
-		// try {
-		// Thread.sleep(1000);
-		// } catch (InterruptedException ie) {
-		// }
-		// }
-		// };
-		// t.start();
+		this.connection(PORT_NAMES);
 	}
 
 	/**
-	 * 
+	 * Establish a connection with the Arduino card.
 	 * 
 	 * @param PORT_NAMES
 	 */
-	public void initialize(String PORT_NAMES[]) {
+	public void connection(String PORT_NAMES[]) {
 		CommPortIdentifier portId = null;
 		Enumeration portEnum = CommPortIdentifier.getPortIdentifiers();
 
@@ -71,20 +63,38 @@ public class Serial implements SerialPortEventListener {
 
 		try {
 			serialPort = (SerialPort) portId.open(this.getClass().getName(), TIME_OUT);
+			Thread.sleep(4000);
 			serialPort.setSerialPortParams(DATA_RATE, SerialPort.DATABITS_8, SerialPort.STOPBITS_1,
 					SerialPort.PARITY_NONE);
 
-			// open the streams
-			input = new BufferedReader(new InputStreamReader(serialPort.getInputStream()));
-			output = serialPort.getOutputStream();
-//			char a ='~';
-//			int c = a;
-//			output.write(c);
-			serialPort.addEventListener(this);
-			serialPort.notifyOnDataAvailable(true);
 		} catch (Exception e) {
 			System.err.println(e.toString());
 		}
+	}
+
+	/**
+	 * Read the input on the serial port, in other words the output of the Arduino
+	 * card.
+	 * 
+	 * @throws IOException
+	 * @throws TooManyListenersException
+	 */
+	public void readIntput() throws IOException, TooManyListenersException {
+		// open the streams
+		input = new BufferedReader(new InputStreamReader(serialPort.getInputStream()));
+		serialPort.addEventListener(this);
+		serialPort.notifyOnDataAvailable(true);
+	}
+
+	/**
+	 * Write the output on the serial port, in other words, the input of the Arduino
+	 * card.
+	 * 
+	 * @throws IOException
+	 */
+	public void writeOutput() throws IOException {
+		output = serialPort.getOutputStream();
+		output.write(messageString.getBytes());
 	}
 
 	/**
@@ -97,7 +107,9 @@ public class Serial implements SerialPortEventListener {
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see gnu.io.SerialPortEventListener#serialEvent(gnu.io.SerialPortEvent)
 	 */
 	public synchronized void serialEvent(SerialPortEvent oEvent) {
@@ -110,7 +122,7 @@ public class Serial implements SerialPortEventListener {
 					this.chunksCreator.setChunks(inputLine.split(","));
 
 					// System.out.println(chunks[0] + " \t " + chunks[1] + " \t ");
-					//System.out.println(this.chunksCreator.getChunks()[0]);
+					// System.out.println(this.chunksCreator.getChunks()[0]);
 				}
 
 			} catch (Exception e) {

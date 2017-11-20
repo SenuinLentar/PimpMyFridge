@@ -7,13 +7,6 @@ public class DisplayLoop {
 	
 	private ChunksCreator chunksCreator;
 	
-//	public DisplayLoop(ChunksCreator chunksCreator) {
-//		this.chunksCreator = chunksCreator;
-//		GraphicInterface graphicInterface = new GraphicInterface();
-//		graphicInterface.Window(this.chunksCreator);
-//	}
-
-	
 	/**
 	 * Constructor of the DisplayLoop class.
 	 * 
@@ -31,8 +24,9 @@ public class DisplayLoop {
 	public void Loop() throws InterruptedException {
 		while (true) {
 //			GraphicInterface.getPanel().update();
-			System.out.println(this.chunksCreator.getChunks()[0]);
-			Thread.sleep(200);
+			System.out.println(this.chunksCreator.getChunks()[0] + "\t\t" + this.chunksCreator.getChunks()[1] + 
+					"\t\t" + this.chunksCreator.getChunks()[2]);
+			Thread.sleep(1000);
 		}
 	}
 }

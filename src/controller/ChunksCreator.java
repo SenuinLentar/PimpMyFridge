@@ -1,14 +1,15 @@
 package controller;
 
 public class ChunksCreator {
-	private String[] chunks = new String[2];
+	private String[] chunks = new String[3];
 
 	/**
 	 * Constructor of the ChunksCreator class.
 	 */
 	public ChunksCreator() {
-		this.chunks[0] = "0";
-		this.chunks[1] = "1";
+		this.chunks[0] = "Température :";
+		this.chunks[1] = "Tension :";
+		this.chunks[2] = "Consigne :";
 	}
 
 	/**

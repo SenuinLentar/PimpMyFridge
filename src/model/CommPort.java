@@ -30,7 +30,7 @@ public class CommPort {
 	}
 
 	/**
-	 * the getter of commPort.
+	 * The getter of commPort.
 	 * 
 	 * @return commPort
 	 */
