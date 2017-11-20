@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.JPanel;
 
-import controller.ChunksCreator;
+import model.ChunksCreator;
 
 public class Panel extends JPanel {
 	/**

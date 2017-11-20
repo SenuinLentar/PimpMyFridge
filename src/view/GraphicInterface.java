@@ -5,7 +5,7 @@ import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import controller.ChunksCreator;
+import model.ChunksCreator;
 import model.Serial;
 
 public class GraphicInterface extends JFrame {

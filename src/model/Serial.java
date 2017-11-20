@@ -11,8 +11,6 @@ import gnu.io.SerialPortEventListener;
 import java.util.Enumeration;
 import java.util.TooManyListenersException;
 
-import controller.ChunksCreator;
-
 public class Serial implements SerialPortEventListener {
 
 	private static SerialPort serialPort;
@@ -119,7 +117,7 @@ public class Serial implements SerialPortEventListener {
 				String inputLine = null;
 				if (input.ready()) {
 					inputLine = input.readLine();
-					this.chunksCreator.setChunks(inputLine.split(","));
+					this.chunksCreator.setChunks(inputLine.split("/"));
 
 					// System.out.println(chunks[0] + " \t " + chunks[1] + " \t ");
 					// System.out.println(this.chunksCreator.getChunks()[0]);
