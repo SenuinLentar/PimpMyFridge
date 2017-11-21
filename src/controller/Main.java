@@ -9,22 +9,15 @@ public class Main {
 		ChunksCreator chunksCreator = new ChunksCreator();
 		CommPort commPort = new CommPort();
 				
-		Serial serial = new Serial(commPort.getCommPort(), chunksCreator, "toto");
-
-		serial.writeOutput();
-		//Thread.sleep(7000);
+		Serial serial = new Serial(commPort.getCommPort(), chunksCreator);
 		serial.readIntput();
 		
 		DewPoint dewPoint = new DewPoint();
 		
 		Graphique graphique = new Graphique(chunksCreator);
-		new Fenetre(graphique, chunk);
+		Fenetre fenetre = new Fenetre(graphique, chunksCreator, serial);
 		
-		DisplayLoop loop = new DisplayLoop(chunksCreator, dewPoint, graphique);
-		loop.Loop();
-		
-
- 
-		
+		DisplayLoop loop = new DisplayLoop(chunksCreator, dewPoint, graphique, fenetre);
+		loop.Loop();		
 	}
 }

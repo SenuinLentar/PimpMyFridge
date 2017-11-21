@@ -3,23 +3,24 @@ package view;
 import controller.DewPoint;
 
 import model.ChunksCreator;
-import model.Serial;
 
 public class DisplayLoop {
 
 	private ChunksCreator chunksCreator;
 	private DewPoint dewPoint;
 	private Graphique graphique;
+	private Fenetre fenetre;
 
 	/**
 	 * Constructor of the DisplayLoop class.
 	 * 
 	 * @param chunksCreator
 	 */
-	public DisplayLoop(ChunksCreator chunksCreator, DewPoint dewPoint, Graphique graphique) {
+	public DisplayLoop(ChunksCreator chunksCreator, DewPoint dewPoint, Graphique graphique, Fenetre fenetre) {
 		this.chunksCreator = chunksCreator;
 		this.dewPoint = dewPoint;
 		this.graphique = graphique;
+		this.fenetre = fenetre;
 		System.out.println("Température extérieure : \t Température intérieure : \t Humidité : \t Consigne :");
 	}
 
@@ -30,17 +31,20 @@ public class DisplayLoop {
 	 */
 	public void Loop() throws InterruptedException {
 		while (true) {
-			// GraphicInterface.getPanel().update();
+			this.fenetre.getConteneurFenetre().getValeurHumiditeLabel().setText(this.chunksCreator.getChunks()[2]);
+			this.fenetre.getConteneurFenetre().getValeurTemperatureExterieurLabel()
+					.setText(this.chunksCreator.getChunks()[1]);
+			this.fenetre.getConteneurFenetre().getValeurTemperatureInterieurLabel()
+					.setText(this.chunksCreator.getChunks()[0]);
+
 			dewPoint.dewPointTemp(this.chunksCreator.getChunks()[1], this.chunksCreator.getChunks()[2]);
-			
+
 			this.graphique.updateTable(this.chunksCreator.getChunks());
 			this.graphique.initUI();
 
-			// System.out.println("\t" + this.chunksCreator.getChunks()[0] + "\t\t\t\t" +
-			// this.chunksCreator.getChunks()[1]
-			// + "\t\t\t " + this.chunksCreator.getChunks()[2] + "\t\t" +
-			// this.chunksCreator.getChunks()[3]);
-			// System.out.println(dewPoint.getDewPointTemp());
+			System.out.println("\t" + this.chunksCreator.getChunks()[0] + "\t\t\t\t" + this.chunksCreator.getChunks()[1]
+					+ "\t\t\t " + this.chunksCreator.getChunks()[2] + "\t\t" + this.chunksCreator.getChunks()[3]);
+			System.out.println(dewPoint.getDewPointTemp());
 			Thread.sleep(1000);
 		}
 	}

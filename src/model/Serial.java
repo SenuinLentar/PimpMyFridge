@@ -17,7 +17,7 @@ public class Serial implements SerialPortEventListener {
 	private static BufferedReader input;
 	private static OutputStream output;
 	private ChunksCreator chunksCreator;
-	private static String messageString;
+
 	private static final int TIME_OUT = 2000;
 	private static final int DATA_RATE = 9600;
 
@@ -28,9 +28,8 @@ public class Serial implements SerialPortEventListener {
 	 * @param chunksCreator
 	 * @throws Exception
 	 */
-	public Serial(String commPort, ChunksCreator chunksCreator, String messageString) throws Exception {
+	public Serial(String commPort, ChunksCreator chunksCreator) throws Exception {
 		this.chunksCreator = chunksCreator;
-		this.messageString = messageString;
 		String PORT_NAMES[] = { commPort };
 		this.connection(PORT_NAMES);
 	}
@@ -90,9 +89,9 @@ public class Serial implements SerialPortEventListener {
 	 * 
 	 * @throws IOException
 	 */
-	public void writeOutput() throws IOException {
+	public void writeOutput(String consigne) throws IOException {
 		output = serialPort.getOutputStream();
-		output.write(messageString.getBytes());
+		output.write(consigne.getBytes());
 	}
 
 	/**

@@ -42,7 +42,7 @@ public class Graphique extends JFrame {
 		chartPanel.setBackground(Color.white);
 		add(chartPanel);
 		pack();
-		setLocationRelativeTo(null);
+		setLocation(1000, 100);
 		this.setDefaultCloseOperation(Graphique.HIDE_ON_CLOSE);
 	}
 

@@ -3,6 +3,7 @@ package view;
 import javax.swing.JFrame;
 
 import model.ChunksCreator;
+import model.Serial;
 
 public class Fenetre extends JFrame {
 	
@@ -14,7 +15,7 @@ public class Fenetre extends JFrame {
 	private ConteneurFenetre conteneurFenetre;
 	private ChunksCreator chunkCreator;
 	
-	public Fenetre(Graphique graphique, ChunksCreator chunkCreator) {
+	public Fenetre(Graphique graphique, ChunksCreator chunkCreator, Serial serial) {
 		//super(); //pas obligatoire car automatique
 		this.setTitle("Projet PMF");
 		this.setSize(900, 700);
@@ -23,13 +24,14 @@ public class Fenetre extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//this.setAlwaysOnTop(true);
 		this.chunkCreator = chunkCreator;
-		conteneurFenetre = new ConteneurFenetre(graphique, chunkCreator);
+		conteneurFenetre = new ConteneurFenetre(graphique, chunkCreator, serial);
 		this.setContentPane(conteneurFenetre);
 		//this.setUndecorated(true); // permet de retirer la barre titre de la fenetre
 		this.setVisible(true);	
-		
 	
 	}
 
-	
+	public ConteneurFenetre getConteneurFenetre() {
+		return conteneurFenetre;
+	}
 }

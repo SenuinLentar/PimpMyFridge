@@ -2,8 +2,11 @@ package view;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -13,6 +16,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 import model.ChunksCreator;
+import model.Serial;
 
 public class ConteneurFenetre extends JPanel implements ActionListener {
 
@@ -45,30 +49,44 @@ public class ConteneurFenetre extends JPanel implements ActionListener {
 	private JLabel valeurHumiditeLabel;
 	private JLabel valeurConsigneLabel;
 
-	public float temperatureInterieure;
-	public float temperatureExterieure;
-	public float humiditeActuelle;
-	public float consigne;
+	private float temperatureInterieure;
+	private float temperatureExterieure;
+	private float humiditeActuelle;
+	private float consigne = 10;
 	
+	private String writeConsigne;
+
 	private Graphique graphique;
 	private ChunksCreator chunkCreator;
-	
+	private Serial serial;
 
 	// Constructeur du PANEL
-	public ConteneurFenetre(Graphique graphique, ChunksCreator chunkCreator ) {
+	public ConteneurFenetre(Graphique graphique, ChunksCreator chunkCreator, Serial serial) {
 		this.setLayout(null);
 		this.proprieteEtiquette();
 		this.proprieteBouton();
 		this.proprieteTexte();
 		this.proprieteImage();
-		
+
 		this.chunkCreator = chunkCreator;
 		this.graphique = graphique;
+		this.serial = serial;
 		
 		this.temperatureInterieure = Float.parseFloat(this.chunkCreator.getChunks()[1]);
 		this.temperatureExterieure = Float.parseFloat(this.chunkCreator.getChunks()[0]);
 		this.humiditeActuelle = Float.parseFloat(this.chunkCreator.getChunks()[2]);
-		this.consigne = Float.parseFloat(this.chunkCreator.getChunks()[3]);
+		// this.consigne = Float.parseFloat(this.chunkCreator.getChunks()[3]);
+	}
+
+	// public void paintComponent(Graphics g) {
+	// this.proprieteEtiquette();
+	// this.proprieteBouton();
+	// this.proprieteTexte();
+	// this.proprieteImage();
+	// }
+
+	public void update() {
+		this.repaint();
 	}
 
 	// PropriÃ©tes pour les images
@@ -201,7 +219,7 @@ public class ConteneurFenetre extends JPanel implements ActionListener {
 		this.boutonMoins.setIcon(new ImageIcon("image/moins.png"));
 		this.boutonMoins.setBounds(780, 160, 80, 80);
 		this.boutonMoins.setBorderPainted(false);
-		//this.boutonMoins.setBackground(null);
+		// this.boutonMoins.setBackground(null);
 		this.boutonMoins.addActionListener(this);
 		this.add(boutonMoins);
 
@@ -232,7 +250,7 @@ public class ConteneurFenetre extends JPanel implements ActionListener {
 			valeurConsigneLabel.setText(String.valueOf(consigne--) + "°C");
 		} else if (source == texte) {
 			// valeurConsigneLabel.setText(texte.getText() + "°C");
-			Double a = Double.parseDouble(texte.getText());
+			float a = Float.parseFloat(texte.getText());
 			if (a > 20) {
 				valeurConsigneLabel.setText("20°C");
 				consigne = 20;
@@ -260,6 +278,24 @@ public class ConteneurFenetre extends JPanel implements ActionListener {
 		else {
 			System.out.println("nope");
 		}
+		this.writeConsigne = Float.toString(this.consigne);
+		try {
+			this.serial.writeOutput(this.writeConsigne);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 
+	public JLabel getValeurTemperatureInterieurLabel() {
+		return valeurTemperatureInterieurLabel;
+	}
+
+	public JLabel getValeurTemperatureExterieurLabel() {
+		return valeurTemperatureExterieurLabel;
+	}
+
+	public JLabel getValeurHumiditeLabel() {
+		return valeurHumiditeLabel;
+	}
 }
