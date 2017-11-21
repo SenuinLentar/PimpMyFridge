@@ -5,9 +5,6 @@ import java.awt.Color;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -20,16 +17,23 @@ import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
+import model.ChunksCreator;
+
 public class Graphique extends JFrame {
 
 	private XYSeries temperature, humidite;
 	private XYSeriesCollection graphique;
+	private float[][] data = new float[3][10];
 
-	public Graphique() {
-		initUI();
+	private ChunksCreator chunksCreator;
+
+	private int x = 0, time = 0;
+
+	public Graphique(ChunksCreator chunksCreator) {
+		this.chunksCreator = chunksCreator;
 	}
 
-	private void initUI() {
+	public void initUI() {
 
 		XYDataset dataset = createDataset();
 		JFreeChart chart = createChart(dataset);
@@ -42,41 +46,50 @@ public class Graphique extends JFrame {
 		this.setDefaultCloseOperation(Graphique.HIDE_ON_CLOSE);
 	}
 
-	private XYDataset createDataset() {
+	public XYDataset createDataset() {
 
 		temperature = new XYSeries("temperature (°C)");
-		
-		temperature.add(1, 17);
-		temperature.add(2, 14);
-		temperature.add(3, 13);
-		temperature.add(4, 15);
-		temperature.add(5, 14);
-		temperature.add(6, 10);
-
 		humidite = new XYSeries("humidité");
-		
-		humidite.add(1, 24.3);
-		humidite.add(2, 22.2);
-		humidite.add(3, 21.9);
-		humidite.add(4, 25.9);
-		humidite.add(5, 19.9);
-		humidite.add(6, 23.7);
+
+		this.temperature.clear();
+		this.humidite.clear();
+		for (int i = 0; i < 9; i++) {
+			this.temperature.add(data[2][i], data[0][i]);
+			this.humidite.add(data[2][i], data[1][i]);
+		}
 
 		graphique = new XYSeriesCollection();
-		
+
 		graphique.addSeries(temperature);
 		graphique.addSeries(humidite);
-
+		
+		time++;
+		
 		return graphique;
 	}
-	
-	public void fillDataSet(XYSeries temperature, XYSeries humidite) {
-		
+
+	public void updateTable(String[] chunks) {
+		if (x < 10) {
+			data[0][x] = Float.parseFloat(this.chunksCreator.getChunks()[1]);
+			data[1][x] = Float.parseFloat(this.chunksCreator.getChunks()[2]);
+			data[2][x] = time;
+			x++;
+		} else {
+			for (int i = 0; i < 9; i++) {
+				data[0][i] = data[0][i + 1];
+				data[1][i] = data[1][i + 1];
+				data[2][i] = data[2][i + 1];
+			}
+			data[0][9] = Float.parseFloat(this.chunksCreator.getChunks()[1]);
+			data[1][9] = Float.parseFloat(this.chunksCreator.getChunks()[2]);
+			data[2][9] = time;
+			time++;
+		}
 	}
 
 	private JFreeChart createChart(final XYDataset dataset) {
 
-		JFreeChart chart = ChartFactory.createXYLineChart("Courbe température et humidité", "temps (en minutes)", "",
+		JFreeChart chart = ChartFactory.createXYLineChart("Courbe température et humidité", "temps (en seconde)", "",
 				dataset, PlotOrientation.VERTICAL, true, true, false);
 
 		XYPlot plot = chart.getXYPlot();
@@ -102,6 +115,10 @@ public class Graphique extends JFrame {
 		plot.setDomainGridlinePaint(Color.BLACK);
 		chart.getLegend().setFrame(BlockBorder.NONE);
 		return chart;
+	}
+
+	public float[][] getData() {
+		return data;
 	}
 
 }

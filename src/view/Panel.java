@@ -26,6 +26,6 @@ public class Panel extends JPanel {
 	}
 
 	public void update() {
-		this.repaint();
+		this.repaint(); 
 	}
 }

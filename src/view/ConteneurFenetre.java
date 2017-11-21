@@ -12,9 +12,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
+import model.ChunksCreator;
+
 public class ConteneurFenetre extends JPanel implements ActionListener {
 
-	// différentes polices
+	// diff�rentes polices
 	Font f = new Font("Calibri", Font.PLAIN, 40); // Police du texte basique
 	Font titre = new Font("Calibri", Font.PLAIN, 60);
 	Font fmin = new Font("Calibri", Font.PLAIN, 24);
@@ -43,18 +45,30 @@ public class ConteneurFenetre extends JPanel implements ActionListener {
 	private JLabel valeurHumiditeLabel;
 	private JLabel valeurConsigneLabel;
 
-	public double temperatureInterieure = 10.0;
-	public double temperatureExterieure = 23.0;
-	public double humiditeActuelle = 24.0;
-	public double consigne = 15.0;
+	public float temperatureInterieure;
+	public float temperatureExterieure;
+	public float humiditeActuelle;
+	public float consigne;
+	
+	private Graphique graphique;
+	private ChunksCreator chunkCreator;
+	
 
 	// Constructeur du PANEL
-	public ConteneurFenetre() {
+	public ConteneurFenetre(Graphique graphique, ChunksCreator chunkCreator ) {
 		this.setLayout(null);
 		this.proprieteEtiquette();
 		this.proprieteBouton();
 		this.proprieteTexte();
 		this.proprieteImage();
+		
+		this.chunkCreator = chunkCreator;
+		this.graphique = graphique;
+		
+		this.temperatureInterieure = Float.parseFloat(this.chunkCreator.getChunks()[1]);
+		this.temperatureExterieure = Float.parseFloat(this.chunkCreator.getChunks()[0]);
+		this.humiditeActuelle = Float.parseFloat(this.chunkCreator.getChunks()[2]);
+		this.consigne = Float.parseFloat(this.chunkCreator.getChunks()[3]);
 	}
 
 	// Propriétes pour les images
@@ -238,8 +252,8 @@ public class ConteneurFenetre extends JPanel implements ActionListener {
 
 		else if (source == boutonGraphique) {
 			SwingUtilities.invokeLater(() -> {
-				Graphique graphe = new Graphique();
-				graphe.setVisible(true);
+				this.graphique.initUI();
+				graphique.setVisible(true);
 			});
 		}
 

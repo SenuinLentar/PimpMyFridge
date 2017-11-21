@@ -11,7 +11,7 @@ public class ChunksCreator {
 		this.chunks[1] = "1";
 		this.chunks[2] = "2";
 		this.chunks[3] = "3";
-	}
+	} 
 
 	/**
 	 * The getter of chunks.

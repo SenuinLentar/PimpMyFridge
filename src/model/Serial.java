@@ -103,7 +103,7 @@ public class Serial implements SerialPortEventListener {
 			serialPort.removeEventListener();
 			serialPort.close();
 		}
-	}
+	} 
 
 	/*
 	 * (non-Javadoc)

@@ -22,7 +22,7 @@ public class GraphicInterface extends JFrame {
 		this.setSize(1200, 700);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+		 
 		panel = new Panel(chunksCreator);
 
 		this.setContentPane(panel);
