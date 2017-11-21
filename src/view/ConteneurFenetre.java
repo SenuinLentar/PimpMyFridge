@@ -61,7 +61,7 @@ public class ConteneurFenetre extends JPanel implements ActionListener {
 	private Serial serial;
 
 	// Constructeur du PANEL
-	public ConteneurFenetre(Graphique graphique, ChunksCreator chunkCreator, Serial serial) {
+	public ConteneurFenetre(Graphique graphique, ChunksCreator chunkCreator, Serial serial) throws IOException {
 		this.setLayout(null);
 		this.proprieteEtiquette();
 		this.proprieteBouton();
@@ -75,7 +75,8 @@ public class ConteneurFenetre extends JPanel implements ActionListener {
 		this.temperatureInterieure = Float.parseFloat(this.chunkCreator.getChunks()[1]);
 		this.temperatureExterieure = Float.parseFloat(this.chunkCreator.getChunks()[0]);
 		this.humiditeActuelle = Float.parseFloat(this.chunkCreator.getChunks()[2]);
-		// this.consigne = Float.parseFloat(this.chunkCreator.getChunks()[3]);
+
+//		this.serial.writeOutput(this.writeConsigne);
 	}
 
 	// public void paintComponent(Graphics g) {
@@ -243,11 +244,11 @@ public class ConteneurFenetre extends JPanel implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
-		if ((source == boutonPlus) && (consigne <= 20)) {
+		if ((source == boutonPlus) && (consigne < 20)) {
 			consigne++;
 			valeurConsigneLabel.setText(String.valueOf(consigne) + "°C");
 
-		} else if ((source == boutonMoins) && (consigne >= 10)) {
+		} else if ((source == boutonMoins) && (consigne > 10)) {
 			consigne--;
 			valeurConsigneLabel.setText(String.valueOf(consigne) + "°C");
 		} else if (source == texte) {
@@ -296,5 +297,9 @@ public class ConteneurFenetre extends JPanel implements ActionListener {
 
 	public JLabel getValeurHumiditeLabel() {
 		return valeurHumiditeLabel;
+	}
+
+	public float getConsigne() {
+		return consigne;
 	}
 }

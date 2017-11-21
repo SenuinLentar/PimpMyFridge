@@ -1,5 +1,7 @@
 package view;
 
+import java.io.IOException;
+
 import javax.swing.JFrame;
 
 import model.ChunksCreator;
@@ -15,7 +17,7 @@ public class Fenetre extends JFrame {
 	private ConteneurFenetre conteneurFenetre;
 	private ChunksCreator chunkCreator;
 	
-	public Fenetre(Graphique graphique, ChunksCreator chunkCreator, Serial serial) {
+	public Fenetre(Graphique graphique, ChunksCreator chunkCreator, Serial serial) throws IOException {
 		//super(); //pas obligatoire car automatique
 		this.setTitle("Projet PMF");
 		this.setSize(900, 700);

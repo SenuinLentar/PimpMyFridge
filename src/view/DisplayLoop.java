@@ -36,9 +36,9 @@ public class DisplayLoop {
 		while (true) {
 			this.fenetre.getConteneurFenetre().getValeurHumiditeLabel().setText(this.chunksCreator.getChunks()[2]);
 			this.fenetre.getConteneurFenetre().getValeurTemperatureExterieurLabel()
-					.setText(this.chunksCreator.getChunks()[1]);
-			this.fenetre.getConteneurFenetre().getValeurTemperatureInterieurLabel()
 					.setText(this.chunksCreator.getChunks()[0]);
+			this.fenetre.getConteneurFenetre().getValeurTemperatureInterieurLabel()
+					.setText(this.chunksCreator.getChunks()[1]);
 
 			dewPoint.dewPointTemp(this.chunksCreator.getChunks()[1], this.chunksCreator.getChunks()[2]);
 
@@ -49,7 +49,9 @@ public class DisplayLoop {
 					+ "\t\t\t " + this.chunksCreator.getChunks()[2] + "\t\t" + this.chunksCreator.getChunks()[3]);
 			System.out.println(dewPoint.getDewPointTemp());
 
-			if (this.dewPoint.getDewPointTemp() > Double.parseDouble(this.chunksCreator.getChunks()[1])) {
+			if (Double.parseDouble(this.chunksCreator.getChunks()[0]) > Double.parseDouble(this.chunksCreator.getChunks()[1])) {
+//				Double.parseDouble(this.chunksCreator.getChunks()[0]) > Double.parseDouble(this.chunksCreator.getChunks()[1])
+//				this.dewPoint.getDewPointTemp() > Double.parseDouble(this.chunksCreator.getChunks()[1])
 				// Thread t = new Thread() {
 				// public void run() {
 				// this.popUp.
@@ -60,6 +62,7 @@ public class DisplayLoop {
 			}
 			
 			if (this.graphique.getData()[0][9] - this.graphique.getData()[0][8] > 5) {
+//				
 				this.popUp.porte();
 			}
 			

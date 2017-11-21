@@ -1,14 +1,22 @@
 package view;
 
-import java.awt.Graphics;
+import java.awt.Color;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 
 public class OuverturePortePanel extends JPanel {
 
-	public void paintComponent(Graphics g) {
-		g.drawString("Porte Ouverte !!!", 10, 20);
-	//	System.out.println(serial.getChunks()[0]);
-	}
 
+    private JLabel text;
+
+    public void texte() {
+
+        text = new JLabel ();
+        this.text.setBounds(20, 150, 400, 50);
+        this.text.setText("condensation");
+        this.text.setForeground(Color.WHITE);
+        this.add(text);
+
+    }
 }

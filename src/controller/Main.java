@@ -16,6 +16,7 @@ public class Main {
 		
 		Graphique graphique = new Graphique(chunksCreator);
 		Fenetre fenetre = new Fenetre(graphique, chunksCreator, serial);
+		serial.writeOutput(String.valueOf(fenetre.getConteneurFenetre().getConsigne()));
 		
 		PopUp popUp = new PopUp();
 		
