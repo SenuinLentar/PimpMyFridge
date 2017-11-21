@@ -17,7 +17,9 @@ public class Main {
 		Graphique graphique = new Graphique(chunksCreator);
 		Fenetre fenetre = new Fenetre(graphique, chunksCreator, serial);
 		
-		DisplayLoop loop = new DisplayLoop(chunksCreator, dewPoint, graphique, fenetre);
+		PopUp popUp = new PopUp();
+		
+		DisplayLoop loop = new DisplayLoop(chunksCreator, dewPoint, graphique, fenetre, popUp);
 		loop.Loop();		
 	}
 }

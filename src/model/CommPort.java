@@ -14,7 +14,7 @@ public class CommPort {
 	public CommPort() {
 		enumComm = CommPortIdentifier.getPortIdentifiers();
 		this.initialize();
-		System.out.println(commPort);
+		//System.out.println(commPort);
 	}
 
 	/**
