@@ -15,7 +15,6 @@ public class Fenetre extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
 	private ConteneurFenetre conteneurFenetre;
-	private ChunksCreator chunkCreator;
 	
 	/**
 	 * Constructor of the class Fenetre.
@@ -32,7 +31,6 @@ public class Fenetre extends JFrame {
 		this.setLocation(70,70);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//this.setAlwaysOnTop(true);
-		this.chunkCreator = chunkCreator;
 		conteneurFenetre = new ConteneurFenetre(graphique, chunkCreator, serial);
 		this.setContentPane(conteneurFenetre);
 		//this.setUndecorated(true); // permet de retirer la barre titre de la fenetre

@@ -63,6 +63,12 @@ public class ConteneurFenetre extends JPanel implements ActionListener {
 	private Serial serial;
 
 	// Constructeur du PANEL
+	/**
+	 * @param graphique
+	 * @param chunkCreator
+	 * @param serial
+	 * @throws IOException
+	 */
 	public ConteneurFenetre(Graphique graphique, ChunksCreator chunkCreator, Serial serial) throws IOException {
 		this.setLayout(null);
 		this.proprieteEtiquette();

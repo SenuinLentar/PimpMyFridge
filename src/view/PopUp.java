@@ -16,7 +16,7 @@ public class PopUp extends JFrame {
 		this.setTitle("Attention !");
 		this.setSize(300, 300);
 		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(Graphique.HIDE_ON_CLOSE);
 	}
 
 	/**

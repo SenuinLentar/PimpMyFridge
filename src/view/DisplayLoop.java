@@ -91,7 +91,7 @@ public class DisplayLoop {
 	 * Check if there is condensation formation, if yes, it display a new windows with a message.
 	 */
 	public void dewPointTest() {
-		if (this.dewPoint.getDewPointTemp() > Double.parseDouble(this.chunksCreator.getChunks()[1])) {
+		if (Double.parseDouble(this.chunksCreator.getChunks()[0]) > Double.parseDouble(this.chunksCreator.getChunks()[1])) {
 			// Double.parseDouble(this.chunksCreator.getChunks()[0]) >
 			// Double.parseDouble(this.chunksCreator.getChunks()[1])
 			// this.dewPoint.getDewPointTemp() >

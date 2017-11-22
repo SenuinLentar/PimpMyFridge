@@ -21,6 +21,10 @@ import model.ChunksCreator;
 
 public class Graphique extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private XYSeries temperature, humidite;
 	private XYSeriesCollection graphique;
 	private float[][] data = new float[3][10];
