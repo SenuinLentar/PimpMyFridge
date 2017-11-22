@@ -1,6 +1,7 @@
 package model;
 
 public class ChunksCreator {
+	
 	private String[] chunks = new String[4];
 
 	/**
@@ -30,5 +31,4 @@ public class ChunksCreator {
 	public void setChunks(String[] string) {
 		this.chunks = string;
 	}
-
 }

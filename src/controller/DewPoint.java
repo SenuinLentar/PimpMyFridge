@@ -7,6 +7,12 @@ public class DewPoint {
 	private double dewPointTemp;
 	private double alpha, temp, hum;
 
+	/**
+	 * Constructor of the DewPoint class.
+	 * 
+	 * @param temp
+	 * @param hum
+	 */
 	public void dewPointTemp(String temp, String hum) {
 		this.temp = Double.parseDouble(temp);
 
@@ -17,6 +23,11 @@ public class DewPoint {
 		dewPointTemp = (b * alpha) / (a - alpha);
 	}
  
+	/**
+	 * Getter of dewPointTemp.
+	 * 
+	 * @return dewPointTemp
+	 */
 	public double getDewPointTemp() {
 		return dewPointTemp;
 	}

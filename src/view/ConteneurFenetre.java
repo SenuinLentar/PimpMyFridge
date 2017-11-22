@@ -2,7 +2,6 @@ package view;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -10,7 +9,6 @@ import java.io.IOException;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
@@ -20,6 +18,10 @@ import model.Serial;
 
 public class ConteneurFenetre extends JPanel implements ActionListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	// différentes polices
 	Font f = new Font("Calibri", Font.PLAIN, 40); // Police du texte basique
 	Font titre = new Font("Calibri", Font.PLAIN, 60);

@@ -70,7 +70,7 @@ public class Serial implements SerialPortEventListener {
 	}
 
 	/**
-	 * Read the input on the serial port, in other words the output of the Arduino
+	 * Read the input on the serial port, in other words, the output of the Arduino
 	 * card.
 	 * 
 	 * @throws IOException
@@ -126,6 +126,5 @@ public class Serial implements SerialPortEventListener {
 				System.err.println(e.toString());
 			}
 		}
-		// Ignore all the other eventTypes, but you should consider the other ones.
 	}
 }

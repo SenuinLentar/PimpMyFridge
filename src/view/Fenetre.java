@@ -17,8 +17,15 @@ public class Fenetre extends JFrame {
 	private ConteneurFenetre conteneurFenetre;
 	private ChunksCreator chunkCreator;
 	
+	/**
+	 * Constructor of the class Fenetre.
+	 * 
+	 * @param graphique
+	 * @param chunkCreator
+	 * @param serial
+	 * @throws IOException
+	 */
 	public Fenetre(Graphique graphique, ChunksCreator chunkCreator, Serial serial) throws IOException {
-		//super(); //pas obligatoire car automatique
 		this.setTitle("Projet PMF");
 		this.setSize(900, 700);
 		this.setResizable(false);	
@@ -33,6 +40,11 @@ public class Fenetre extends JFrame {
 	
 	}
 
+	/**
+	 * Getter of conteneurFenetre.
+	 * 
+	 * @return conteneurFenetre
+	 */
 	public ConteneurFenetre getConteneurFenetre() {
 		return conteneurFenetre;
 	}

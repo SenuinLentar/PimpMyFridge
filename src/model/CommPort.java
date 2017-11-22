@@ -37,5 +37,4 @@ public class CommPort {
 	public String getCommPort() {
 		return commPort;
 	}
-
 }
