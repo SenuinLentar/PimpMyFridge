@@ -14,7 +14,7 @@ public class OuverturePortePanel extends JPanel {
 
         text = new JLabel ();
         this.text.setBounds(20, 150, 400, 50);
-        this.text.setText("condensation");
+        this.text.setText("Porte ouverte!");
         this.text.setForeground(Color.WHITE);
         this.add(text);
 
